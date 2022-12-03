@@ -8,7 +8,7 @@
 
 int main(void)
 {
-	char *buff, *buffdup, **av;
+	char *buff, *buffdup, **av, *com_path;
 	size_t bufsize = 0;
 	int ac = 0, status, pid_check, len = 0, argcount = 0;
 
@@ -32,7 +32,9 @@ int main(void)
 			printf("Fallo malloc\n");
 			return (-1);
 		}
-		av[0] = buff;
+		com_path = _getcommand(_getenv("PATH"), buff);
+		com_path = strcat(com_path, "/");
+		av[0] = strcat(com_path, buff);
 		for (ac = 1; ac <= argcount; ac++)
 		{
 			av[ac] = strtok(NULL, " \n");
@@ -43,7 +45,9 @@ int main(void)
 		wait(&status);
 		if (pid_check == 0)
 		{
+			printf("Antes de execve %s\n", av[0]);
 			execve(av[0], av, environ);
+			printf("Despues de execve\n");
 		}
 		free(buffdup);
 		free(av);

@@ -18,4 +18,6 @@ extern char **environ;
 
 char *_getenv(const char *name);
 
+char *_getcommand(char *path, char *command);
+
 #endif
