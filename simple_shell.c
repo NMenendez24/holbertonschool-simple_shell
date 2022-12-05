@@ -8,23 +8,18 @@
 
 int main(void)
 {
-	char *buff, *buffdup, **av, *com_path;
+	char *buff, *buffdup, *token, **av, *com_path, *aux;
 	size_t bufsize = 0;
 	int ac = 0, status, pid_check, len = 0, argcount = 0;
 
 	while (1)
 	{
 		printf("$ ");
+		buff = malloc(bufsize);
 		getline(&buff, &bufsize, stdin);
 		buffdup = strdup(buff);
-		buff = strtok(buff, " \n");
-		if (buff == NULL)
-		{
-			printf("Cagaste Light\n");
-			return (-1);
-		}
-		for (len = 0; buffdup[len] != '\0'; len++)
-			if (buffdup[len] == ' ' || buffdup[len] == '\n')
+		for (len = 0, argcount = 0; buffdup[len] != '\0'; len++)
+			if ((buffdup[len] == ' ' || buffdup[len] == '\n'))
 				argcount += 1;
 		av = malloc(sizeof(char *) * argcount + 1);
 		if (!av)
@@ -32,24 +27,25 @@ int main(void)
 			printf("Fallo malloc\n");
 			return (-1);
 		}
-		com_path = _getcommand(_getenv("PATH"), buff);
-		com_path = strcat(com_path, "/");
-		av[0] = strcat(com_path, buff);
+		token = strtok(buffdup, " \n");
+		com_path = _getcommand(_getenv("PATH"), token);
+		if(com_path == NULL)
+			printf("Command: %s not found\n", token);
+		av[0] = com_path;
+		token = strtok(buff, " \n");
 		for (ac = 1; ac <= argcount; ac++)
 		{
-			av[ac] = strtok(NULL, " \n");
+			aux = strtok(NULL, " \n");
+			av[ac] = aux;
 			if (ac == argcount)
 				av[ac + 1] = NULL;
 		}
 		pid_check = fork();
-		wait(&status);
 		if (pid_check == 0)
-		{
-			printf("Antes de execve %s\n", av[0]);
 			execve(av[0], av, environ);
-			printf("Despues de execve\n");
-		}
-		free(buffdup);
+		else
+			wait(&status);
+		free(buff);
 		free(av);
 	}
 }

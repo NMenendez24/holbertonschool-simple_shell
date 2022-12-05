@@ -5,17 +5,17 @@ char *_getenv(const char *name)
 	int i;
 	char *buff, *token, *str;
 
-	buff = malloc(sizeof(char *) * 100);
 	for (i = 0; environ[i]; i++)
 	{
-		str = strtok(environ[i], "=");
+		str = strdup(environ[i]);
+		str = strtok(str, "=");
 		if (strcmp(str, name) == 0)
 		{
 			str = strtok(NULL, "=");
-			free(buff);
 			printf("Path en getenv: %s\n", str);
 			return (str);
 		}
+		free(str);
 	}
 	return (NULL);
 }
@@ -26,20 +26,17 @@ char *_getcommand(char *path, char *command)
 	char *token = NULL, *buff = NULL, *aux = NULL, *delim = ":";
 	struct stat st;
 
-	printf("Before Token\n");
+	if(stat(command, &st) == 0)
+		return(command);
 	buff = strdup(path);
-	token = strtok(buff , delim);
-	printf("Token\n");
+	token = strtok(buff, delim);
 	while (token)
 	{
 		token = strtok(NULL, delim);
-		printf("token: %s\n", token);
-		aux = malloc(2);
-//		aux = malloc(sizeof(char) * (strlen(token) + strlen(command)) + 2);
+		aux = malloc(sizeof(char) * (strlen(token) + strlen(command)) + 1);
 		strcpy(aux, token);
 		strcat(aux, "/");
 		strcat(aux, command);
-		printf("%s\n", aux);
 		if(stat(aux, &st) == 0)
 		{
 			free(buff);
@@ -47,21 +44,11 @@ char *_getcommand(char *path, char *command)
 		}
 		free(aux);
 		aux = NULL;
-		/**aux = malloc(1024);
-		strcpy(aux, token);
-		strcat(aux, "/");
-		strcat(aux, command);
-		if(stat(aux, &st) == 0)
-		{
-			return(aux);
-		}
-		else
-			free(aux);*/
 	}
 	return(NULL);
 }
 
-
+/*
 void main(void)
 {
 	char *str = "PATH";
@@ -74,4 +61,4 @@ void main(void)
 	printf("Main final: %s\n", aux);
 	return;	
 }
-
+*/
