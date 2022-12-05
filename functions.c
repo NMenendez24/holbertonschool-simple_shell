@@ -5,8 +5,6 @@ char *_getenv(const char *name)
 	int i;
 	char *buff, *token, *str;
 
-	
-	printf("En funcion getenv name: %s\n", name);
 	buff = malloc(sizeof(char *) * 100);
 	for (i = 0; environ[i]; i++)
 	{
@@ -15,6 +13,7 @@ char *_getenv(const char *name)
 		{
 			str = strtok(NULL, "=");
 			free(buff);
+			printf("Path en getenv: %s\n", str);
 			return (str);
 		}
 	}
@@ -24,27 +23,45 @@ char *_getenv(const char *name)
 char *_getcommand(char *path, char *command)
 {
 	int c = 0, child_check, check = 0;
-	char *token, *buff, *aux;
+	char *token = NULL, *buff = NULL, *aux = NULL, *delim = ":";
 	struct stat st;
 
-	printf("En funcion getcommand path: %s\n", path);
-	printf("En funcion getcommand command: %s\n", command);
-	buff = path;
-	token = strtok(buff, ":");
-	while (stat(token, &st) == -1 && token != NULL)
+	printf("Before Token\n");
+	buff = strdup(path);
+	token = strtok(buff , delim);
+	printf("Token\n");
+	while (token)
 	{
-		token = strcat(token, "/");
-		token = strcat(token, command);
-		token = strtok(NULL, ":");
-	}
-	if(stat(token, &st) == 0)
-	{
-		return(token);
+		token = strtok(NULL, delim);
+		printf("token: %s\n", token);
+		aux = malloc(2);
+//		aux = malloc(sizeof(char) * (strlen(token) + strlen(command)) + 2);
+		strcpy(aux, token);
+		strcat(aux, "/");
+		strcat(aux, command);
+		printf("%s\n", aux);
+		if(stat(aux, &st) == 0)
+		{
+			free(buff);
+			return (aux);
+		}
+		free(aux);
+		aux = NULL;
+		/**aux = malloc(1024);
+		strcpy(aux, token);
+		strcat(aux, "/");
+		strcat(aux, command);
+		if(stat(aux, &st) == 0)
+		{
+			return(aux);
+		}
+		else
+			free(aux);*/
 	}
 	return(NULL);
 }
 
-/*
+
 void main(void)
 {
 	char *str = "PATH";
@@ -52,8 +69,9 @@ void main(void)
 	char *command = "ls";
 	char *aux;
 
+	printf("Soy el main\n");
 	aux = _getcommand(path, command);
 	printf("Main final: %s\n", aux);
 	return;	
 }
-*/
+
