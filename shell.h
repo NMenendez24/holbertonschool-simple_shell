@@ -20,4 +20,10 @@ char *_getenv(const char *name);
 
 char *_getcommand(char *path, char *command);
 
+int _argcounter(char *inp);
+
+void _puts(char *str);
+
+int _putchar(char c);
+
 #endif

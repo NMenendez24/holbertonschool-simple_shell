@@ -12,7 +12,6 @@ char *_getenv(const char *name)
 		if (strcmp(str, name) == 0)
 		{
 			str = strtok(NULL, "=");
-			printf("Path en getenv: %s\n", str);
 			return (str);
 		}
 		free(str);
@@ -26,39 +25,43 @@ char *_getcommand(char *path, char *command)
 	char *token = NULL, *buff = NULL, *aux = NULL, *delim = ":";
 	struct stat st;
 
-	if(stat(command, &st) == 0)
-		return(command);
+	if (stat(command, &st) == 0)
+		return (command);
 	buff = strdup(path);
 	token = strtok(buff, delim);
 	while (token)
 	{
-		token = strtok(NULL, delim);
 		aux = malloc(sizeof(char) * (strlen(token) + strlen(command)) + 1);
 		strcpy(aux, token);
 		strcat(aux, "/");
 		strcat(aux, command);
-		if(stat(aux, &st) == 0)
+		if (stat(aux, &st) == 0)
 		{
 			free(buff);
 			return (aux);
 		}
+		token = strtok(NULL, delim);
 		free(aux);
 		aux = NULL;
 	}
-	return(NULL);
+	free(buff);
+	return (NULL);
 }
 
-/*
-void main(void)
+int _argcounter(char *inp)
 {
-	char *str = "PATH";
-	char *path = _getenv(str);
-	char *command = "ls";
-	char *aux;
+	int len = 0, argcount = 0;
+	char c;
 
-	printf("Soy el main\n");
-	aux = _getcommand(path, command);
-	printf("Main final: %s\n", aux);
-	return;	
+	for (len = 0; len < strlen(inp); len++)
+	{
+		if (inp[len] == ' ' && inp[len + 1] != ' ' && inp[len + 1] != '\t')
+			argcount += 1;
+		else if (inp[len] == '\t' && inp[len + 1] != ' ' && inp[len + 1] != '\t')
+			argcount += 1;
+	}
+	if ((inp[0] == ' ' || inp[0] == '\t') && (inp[1] == ' ' || inp[1] == '\t'))
+		argcount -= 2;
+	return (argcount + 1);
 }
-*/
+
