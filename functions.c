@@ -26,8 +26,8 @@ char *_getcommand(char *path, char *command)
 	char *token = NULL, *buff = NULL, *aux = NULL, *delim = ":";
 	struct stat st;
 
-	if(stat(command, &st) == 0)
-		return(command);
+	if (stat(command, &st) == 0)
+		return (command);
 	buff = strdup(path);
 	token = strtok(buff, delim);
 	while (token)
@@ -37,7 +37,7 @@ char *_getcommand(char *path, char *command)
 		strcpy(aux, token);
 		strcat(aux, "/");
 		strcat(aux, command);
-		if(stat(aux, &st) == 0)
+		if (stat(aux, &st) == 0)
 		{
 			free(buff);
 			return (aux);
@@ -45,20 +45,24 @@ char *_getcommand(char *path, char *command)
 		free(aux);
 		aux = NULL;
 	}
-	return(NULL);
+	return (NULL);
 }
 
-/*
-void main(void)
+int _argcounter(char *inp)
 {
-	char *str = "PATH";
-	char *path = _getenv(str);
-	char *command = "ls";
-	char *aux;
+	int len = 0, argcount = 0;
+	char c;
 
-	printf("Soy el main\n");
-	aux = _getcommand(path, command);
-	printf("Main final: %s\n", aux);
-	return;	
+	printf("Input: %s\n", inp);
+	for (len = 0; len < strlen(inp); len++)
+	{
+		if (inp[len] == ' ' && inp[len + 1] != ' ' && inp[len + 1] != '\t')
+			argcount += 1;
+		else if (inp[len] == '\t' && inp[len + 1] != ' ' && inp[len + 1] != '\t')
+			argcount += 1;
+	}
+	if ((inp[0] == ' ' || inp[0] == '\t') && (inp[1] == ' ' || inp[1] == '\t'))
+		argcount -= 2;
+	return (argcount + 1);
 }
-*/
+

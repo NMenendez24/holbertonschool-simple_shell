@@ -18,21 +18,23 @@ int main(void)
 		buff = malloc(bufsize);
 		getline(&buff, &bufsize, stdin);
 		buffdup = strdup(buff);
-		for (len = 0, argcount = 0; buffdup[len] != '\0'; len++)
+		/*for (len = 0, argcount = 0; buffdup[len] != '\0'; len++)
 			if ((buffdup[len] == ' ' || buffdup[len] == '\n'))
 				argcount += 1;
+				*/
+		argcount = _argcounter(buffdup);
 		av = malloc(sizeof(char *) * argcount + 1);
 		if (!av)
 		{
 			printf("Fallo malloc\n");
 			return (-1);
 		}
-		token = strtok(buffdup, " \n");
+		token = strtok(buffdup, "\t \n");
 		com_path = _getcommand(_getenv("PATH"), token);
 		if(com_path == NULL)
 			printf("Command: %s not found\n", token);
 		av[0] = com_path;
-		token = strtok(buff, " \n");
+		token = strtok(buff, " \t\n");
 		for (ac = 1; ac <= argcount; ac++)
 		{
 			aux = strtok(NULL, " \n");
