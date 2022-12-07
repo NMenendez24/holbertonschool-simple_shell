@@ -12,7 +12,6 @@ char *_getenv(const char *name)
 		if (strcmp(str, name) == 0)
 		{
 			str = strtok(NULL, "=");
-			printf("Path en getenv: %s\n", str);
 			return (str);
 		}
 		free(str);
@@ -32,7 +31,6 @@ char *_getcommand(char *path, char *command)
 	token = strtok(buff, delim);
 	while (token)
 	{
-		token = strtok(NULL, delim);
 		aux = malloc(sizeof(char) * (strlen(token) + strlen(command)) + 1);
 		strcpy(aux, token);
 		strcat(aux, "/");
@@ -42,9 +40,11 @@ char *_getcommand(char *path, char *command)
 			free(buff);
 			return (aux);
 		}
+		token = strtok(NULL, delim);
 		free(aux);
 		aux = NULL;
 	}
+	free(buff);
 	return (NULL);
 }
 
@@ -53,7 +53,6 @@ int _argcounter(char *inp)
 	int len = 0, argcount = 0;
 	char c;
 
-	printf("Input: %s\n", inp);
 	for (len = 0; len < strlen(inp); len++)
 	{
 		if (inp[len] == ' ' && inp[len + 1] != ' ' && inp[len + 1] != '\t')
