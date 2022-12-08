@@ -30,9 +30,9 @@ char *_strcat(char *dest, char *src);
 
 int _strlen(char *s);
 
-char *_strncpy(char *dest, char *src, int n);
+char *_strcpy(char *dest, char *src);
 
-int _strcmp(char *s1, char *s2);
+int _strcmp(char *s1, const char *s2);
 
 char *_strdup(char *str);
 #endif
