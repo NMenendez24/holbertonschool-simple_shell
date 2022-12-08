@@ -10,7 +10,7 @@ int main(void)
 {
 	char *buff = NULL, *buffdup = NULL, *token = NULL, **av, *com_path = NULL, *aux = NULL, *pathaux = NULL;
 	size_t bufsize = 0;
-	int ac = 0, status, pid_check, len = 0, argcount = 0, c;
+	int ac = 0, status, pid_check, argcount = 0, c;
 
 	while (1)
 	{

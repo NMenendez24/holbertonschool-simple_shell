@@ -3,7 +3,7 @@
 char *_getenv(const char *name)
 {
 	int i;
-	char *buff = NULL, *token, *str;
+	char *str = NULL;
 
 	for (i = 0; environ[i]; i++)
 	{
@@ -21,8 +21,7 @@ char *_getenv(const char *name)
 
 char *_getcommand(char *path, char *command)
 {
-	int c = 0, check = 0;
-	char *token = NULL, *buff = NULL, *aux = NULL, *delim = ":";
+	char *token = NULL, *aux = NULL, *delim = ":";
 	struct stat st;
 
 	if (stat(command, &st) == 0)
@@ -52,7 +51,6 @@ char *_getcommand(char *path, char *command)
 int _argcounter(char *inp)
 {
 	int len = 0, argcount = 0;
-	char c;
 
 	for (len = 0; len < _strlen(inp); len++)
 	{
