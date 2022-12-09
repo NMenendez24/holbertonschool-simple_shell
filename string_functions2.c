@@ -18,13 +18,31 @@ void _puts(char *str)
 }
 
 /**
- *  * _putchar - writes the character c to stdout
- *   * @c: The character to print
- *    *
- *     * Return: On success 1.
- *      * On error, -1 is returned, and errno is set appropriately.
- *       */
+ * _putchar - writes the character c to stdout
+ * @c: The character to print
+ *
+ * Return: On success 1.
+ * On error, -1 is returned, and errno is set appropriately.
+ */
 int _putchar(char c)
 {
 	return (write(1, &c, 1));
 }
+
+/**
+ * _putsnl - Prints a string with a new line at the end
+ * Return: nothing
+ * @str: Pointer to the string
+ */
+void _putsnl(char *str)
+{
+	int l = 0;
+
+	while (str[l] != '\0')
+	{
+		_putchar(str[l]);
+		l++;
+	}
+	_putchar(10);
+}
+

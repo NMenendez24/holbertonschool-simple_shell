@@ -1,5 +1,11 @@
 #include "shell.h"
 
+/**
+ * _getenv - Returns the environment variable especified
+ * Return: Pointer to variable on success, NULL if it fails
+ * @name: Name of the variable to find
+ */
+
 char *_getenv(const char *name)
 {
 	int i;
@@ -19,6 +25,14 @@ char *_getenv(const char *name)
 	return (NULL);
 }
 
+/**
+ * _getcommand - Concatenates the command to the path and returns
+ * the path to it
+ * Return: Path to the command on success, NULL if it fails
+ * @path: Full path
+ * @command: Name of the comand to find the path
+ */
+
 char *_getcommand(char *path, char *command)
 {
 	char *token = NULL, *aux = NULL, *delim = ":";
@@ -30,9 +44,9 @@ char *_getcommand(char *path, char *command)
 	while (token)
 	{
 		aux = malloc(sizeof(char) * (strlen(token) + strlen(command)) + 2);
-		if(!aux)
+		if (!aux)
 		{
-			return(NULL);
+			return (NULL);
 		}
 		_strcpy(aux, token);
 		_strcat(aux, "/");
@@ -48,6 +62,12 @@ char *_getcommand(char *path, char *command)
 	return (NULL);
 }
 
+/**
+ * _argcounter - Counts the arguments of a string
+ * Return: Number of arguments counted
+ * @inp: Input
+ */
+
 int _argcounter(char *inp)
 {
 	int len = 0, argcount = 0;
@@ -62,5 +82,16 @@ int _argcounter(char *inp)
 	if ((inp[0] == ' ' || inp[0] == '\t') && (inp[1] == ' ' || inp[1] == '\t'))
 		argcount -= 2;
 	return (argcount + 1);
+}
+
+void _printenv(void)
+{
+	int i;
+	char *str = NULL;
+
+	for (i = 0; environ[i]; i++)
+	{
+		_putsnl(environ[i]);
+	}
 }
 

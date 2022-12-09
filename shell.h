@@ -11,9 +11,10 @@
 #include <stdlib.h>
 #include <string.h>
 
-/*---------- Evironment ----------*/
+/*---------- EVIRONMENT ----------*/
 
 extern char **environ;
+
 /*----------- FUNCTIONS ----------*/
 
 char *_getenv(const char *name);
@@ -35,4 +36,9 @@ char *_strcpy(char *dest, char *src);
 int _strcmp(char *s1, const char *s2);
 
 char *_strdup(char *str);
+
+void _putsnl(char *str);
+
+void _printenv(void);
+
 #endif
