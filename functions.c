@@ -84,6 +84,11 @@ int _argcounter(char *inp)
 	return (argcount + 1);
 }
 
+/**
+ * _printenv - Prints the environment
+ * Return: Nothing
+ */
+
 void _printenv(void)
 {
 	int i;
