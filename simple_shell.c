@@ -52,8 +52,8 @@ int main(void)
 		if (pid_check == 0)
 			execve(av[0], av, environ);
 		wait(&status);
-//		if (isatty(STDIN_FILENO) == 1)
-//			free(buffdup);
+/*		if (isatty(STDIN_FILENO) == 1)
+			free(buffdup);*/
 		free(buffdup), free(av);
 		if (com_path)
 			free(com_path); } }

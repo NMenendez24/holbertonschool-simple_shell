@@ -87,7 +87,6 @@ int _argcounter(char *inp)
 void _printenv(void)
 {
 	int i;
-	char *str = NULL;
 
 	for (i = 0; environ[i]; i++)
 	{
