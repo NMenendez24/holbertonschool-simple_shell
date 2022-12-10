@@ -20,18 +20,18 @@ int main(void)
 			(c == -1) ? free(buff), exit(0) : (void) 0; /*Checks for a CTRL + D*/
 		buffdup = _strdup(buff), argcount = _argcounter(buffdup);
 		token = strtok(buffdup, " \\\t\n");
-		if (!token)
+		if (!token) /*empty input handle*/
 		{	free(buffdup);
 			continue; }
 		av = malloc(sizeof(char *) * (argcount + 1)); /* for the argument vector*/
 		if (!av)
 		{	free(buff), free(buffdup), write(2, "Fatal error\n", 12);
-			return (-1); }
+			return (-1); } /*malloc fail handle*/
 		(strcmp(token, "exit") == 0) ? free(buff), free(buffdup),
 			free(av), exit(0) : (void) 0; /*exit built-in*/
-		if (_strcmp(token, "env") == 0)
+		if (_strcmp(token, "env") == 0) /*env built-in*/
 		{	_printenv(), free(av), free(buffdup);
-			continue; } /*env built-in*/
+			continue; }
 		if (stat(token, &st) == 0) /*check if the input is already a command*/
 			av[0] = token;
 		else
@@ -39,11 +39,11 @@ int main(void)
 		free(pathaux - 5); /*gets the command and searchs it in the path*/
 			if (com_path == NULL)
 			{	free(buffdup), free(av), write(2, "Command not found\n", 18);
-				continue; }
+				continue; } /*Incorrect command handle*/
 		av[0] = com_path, token = strtok(buff, " \\\t\n"); }
 		for (ac = 1; ac <= argcount; ac++) /*builds the argument vector*/
 			aux = strtok(NULL, " \\\t\n"), av[ac] = aux;
 		pid_check = fork(); /*creates a parent proccess*/
 		(pid_check == 0) ? execve(av[0], av, environ) : 0; /*executes the command*/
 		wait(&status);
-		free(buffdup), free(av), (com_path) ? free(com_path) : (void) 0; }} /*free*/
+		free(buffdup), free(av), (com_path) ? free(com_path) : (void) 0; }} /*end*/
