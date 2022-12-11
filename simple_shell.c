@@ -23,7 +23,7 @@ int main(void)
 		if (!token) /*empty input handle*/
 		{	free(buffdup);
 			continue; }
-		av = malloc(sizeof(char *) * (argcount + 1)); /* for the argument vector*/
+		av = malloc(sizeof(char *) * (argcount + 2)); /* for the argument vector*/
 		if (!av)
 		{	free(buff), free(buffdup), write(2, "Fatal error\n", 12);
 			return (-1); } /*malloc fail handle*/
@@ -41,8 +41,8 @@ int main(void)
 			{	free(buffdup), free(av), write(2, "Command not found\n", 18);
 				continue; } /*Incorrect command handle*/
 		av[0] = com_path, token = strtok(buff, " \\\t\n"); }
-		for (ac = 1; ac <= argcount; ac++) /*builds the argument vector*/
-			aux = strtok(NULL, " \\\t\n"), av[ac] = aux;
+		for (ac = 0; ac <= argcount;) /*builds the argument vector*/
+			ac++, aux = strtok(NULL, " \\\t\n"), av[ac] = aux;
 		pid_check = fork(); /*creates a parent proccess*/
 		(pid_check == 0) ? execve(av[0], av, environ) : 0; /*executes the command*/
 		wait(&status);

@@ -76,8 +76,8 @@ int _argcounter(char *inp)
 			argcount += 1;
 	}
 	if ((inp[0] == ' ' || inp[0] == '\t') && (inp[1] == ' ' || inp[1] == '\t'))
-		argcount -= 2;
-	return (argcount + 1);
+		argcount -= 1;
+	return (argcount);
 }
 
 /**
