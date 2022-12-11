@@ -41,8 +41,8 @@ int main(void)
 			{	free(buffdup), free(av), write(2, "Command not found\n", 18);
 				continue; } /*Incorrect command handle*/
 		av[0] = com_path, token = strtok(buff, " \\\t\n"); }
-		for (ac = 0; ac <= argcount;) /*builds the argument vector*/
-			ac++, aux = strtok(NULL, " \\\t\n"), av[ac] = aux;
+		for (ac = 1; ac <= argcount; ac++) /*builds the argument vector*/
+			aux = strtok(NULL, " \\\t\n"), av[ac] = aux;
 		pid_check = fork(); /*creates a parent proccess*/
 		(pid_check == 0) ? execve(av[0], av, environ) : 0; /*executes the command*/
 		wait(&status);
