@@ -21,17 +21,18 @@ LIBRARIES
 #include<stdlib.h>
 .br
 #include<string.h>
+.TP
+FUNCTION
+.br
+char *_getenv(const char *name);
+.br
+char *_getcommand(char *path, char *command);
+.br
 .SH DESCRIPTION
 The simple shell utility is a command language interpreter that shall
 execute commands read from a command line string, the standard
 input, or a specified file.
 .PP
-Simple_Shell can execute:
-.PP
-exit - exit simple_shell
-.br
-env - prints a list of the current enviroment variables.
-.br
 commands with and without flags - Example: "ls -l" "pwd" "echo"
 .br
 commands with path - Example: "/bin/ls -l" "/bin/pwd" "/bin/echo"

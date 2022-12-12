@@ -95,3 +95,20 @@ void _printenv(void)
 	}
 }
 
+/**
+ * _error - Handle the error
+ * Return: Nothing
+ * @times: Times command executed
+ * @command: Command
+ */
+
+void _error(int times, char *command)
+{
+	char ctimes = times + '0';
+
+	write(2, "./hsh: ", 7);
+	write(2, &ctimes, 1);
+	write(2, ": ", 2);
+	write(2, command, _strlen(command));
+	write(2, ": not found\n", 12);
+}

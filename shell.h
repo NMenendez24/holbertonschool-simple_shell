@@ -41,4 +41,6 @@ void _putsnl(char *str);
 
 void _printenv(void);
 
+void _error(int times, char *command);
+
 #endif
