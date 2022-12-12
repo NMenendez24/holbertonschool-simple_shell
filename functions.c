@@ -45,16 +45,12 @@ char *_getcommand(char *path, char *command)
 	{
 		aux = malloc(sizeof(char) * (strlen(token) + strlen(command)) + 2);
 		if (!aux)
-		{
 			return (NULL);
-		}
 		_strcpy(aux, token);
 		_strcat(aux, "/");
 		_strcat(aux, command);
 		if (stat(aux, &st) == 0)
-		{
 			return (aux);
-		}
 		token = strtok(NULL, delim);
 		free(aux);
 		aux = NULL;

@@ -73,19 +73,19 @@ A shell interface gives the user a prompt, in this case we established a "$ ", a
 
 ### Description File 
 
-<b>shel.h</b> - library and prototypes.
+<b>shell.h</b> - libraries and function prototypes.
 
 <b>simple_shell.c</b> - the main function: command interpreter.
 
-<b>function.c</b> - _getenv function: gets the "PATH" variable, _getcommand function: look for the command, _argcounter: count arguments, _printenv function: prints the environment.
+<b>function.c</b> - _getenv function: gets a environmental variable, _getcommand function: search for the path of a command, _argcounter: counts arguments, _printenv function: prints the environment.
 
 <b>string_function.c</b> - _strcat function: concatenate the string,  _strlen function: the length of a string,  _strcpy function: copy a string,  _strcmp function: compares two string,  _strdup function: duplicate a string.
 
 <b>string_function2.c</b> - _puts function: prints a string, _putchar function: write a character in stdout, _putsnl function: prints a string with a new line at the end
 
-<b>man_simple_shell</b> - man page the simple_shell
+<b>man_simple_shell</b> - man page of the simple_shell
 
-<b>AUTHORES</b> - contributores to repository
+<b>AUTHORS</b> - contributors to the repository
 
 
 ## Flowchart
