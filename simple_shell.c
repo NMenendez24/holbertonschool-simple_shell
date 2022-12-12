@@ -17,7 +17,7 @@ int main(void)
 		(isatty(STDIN_FILENO) == 1) ? _puts("$ ") : (void) 0, i++; /*Print prompt*/
 		c = getline(&buff, &bufsize, stdin); /*gets the input*/
 		(c == -1 && isatty(STDIN_FILENO) == 1) ? free(buff), _putchar(10), exit(0) :
-			(c == -1) ? free(buff), exit(127) : (void) 0; /*Checks for a CTRL + D*/
+			(c == -1) ? free(buff), exit(0) : (void) 0; /*Checks for a CTRL + D*/
 		buffdup = _strdup(buff), argcount = _argcounter(buffdup);
 		token = strtok(buffdup, " \\\t\n");
 		if (!token) /*empty input handle*/
