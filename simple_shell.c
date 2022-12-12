@@ -28,7 +28,7 @@ int main(void)
 		{	free(buff), free(buffdup), write(2, "Fatal error\n", 12);
 			return (-1); } /*malloc fail handle*/
 		(strcmp(token, "exit") == 0) ? free(buff), free(buffdup),
-			free(av), exit(2) : (void) 0; /*exit built-in*/
+			free(av), exit(0) : (void) 0; /*exit built-in*/
 		if (_strcmp(token, "env") == 0) /*env built-in*/
 		{	_printenv(), free(av), free(buffdup);
 			continue; }
